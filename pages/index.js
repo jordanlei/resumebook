@@ -9,7 +9,7 @@ const Index = (props) => (
   <Layout>
     <Card style={{padding: 10+"%"}}>
       <ul>
-      <h3>Hello, World! This is version 2.</h3>
+      <h3>Hello, World! This is version 3.</h3>
       <li><Link href='/b' as='/a'><a>a</a></Link></li>
       <li><Link href='/a' as='/b'><a>b</a></Link></li>
       </ul>
