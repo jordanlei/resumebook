@@ -1,8 +1,7 @@
 import Header from './Header'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const layoutStyle = {
-  padding: 20 + "%",
-  border: '1px solid #DDD',
   fontFamily: "Arial"
 }
 

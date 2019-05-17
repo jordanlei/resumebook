@@ -1,13 +1,14 @@
 import React from 'react'
 import {Card} from 'reactstrap'
 import Link from 'next/link'
+import About from './about.js'
 import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Index = (props) => (
   <Layout>
-    <Card>
+    <Card style={{padding: 10+"%"}}>
       <ul>
       <h3>Hello, World! This is version 2.</h3>
       <li><Link href='/b' as='/a'><a>a</a></Link></li>
