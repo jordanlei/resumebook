@@ -1,8 +1,7 @@
 import Header from './Header'
 
 const layoutStyle = {
-  padding: 20 + "%",
-  border: '1px solid #DDD',
+  padding: 10 + "%",
   fontFamily: "Arial"
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card} from 'reactstrap'
 import Link from 'next/link'
-import Layout from './components/Layout'
+import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
