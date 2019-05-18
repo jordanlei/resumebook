@@ -4,9 +4,13 @@ const path = require('path');
 const url = require('url');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var cors = require("cors");
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
+const apiRouter= require('./server/routes/api.js')
 
 // Multi-process to utilize all CPU cores.
 if (!dev && cluster.isMaster) {
@@ -42,12 +46,51 @@ if (!dev && cluster.isMaster) {
           res.redirect("https://" + req.headers.host + req.url);
         });
       }
+
+      // view engine setup
+      server.set('views', path.join(__dirname, 'views'));
+      server.set('view engine', 'jade');
+
+      server.use(logger('dev'));
+      server.use(express.json());
+      server.use(express.urlencoded({ extended: false }));
+      server.use(cookieParser());
+      server.use(express.static(path.join(__dirname, 'public')));
+      server.use(cors());
+      server.use("/api", apiRouter); // NEW
       
+
+
       // Static files
       // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
       server.use('/static', express.static(path.join(__dirname, 'static'), {
         maxAge: dev ? '0' : '365d'
       }));
+
+      // route for creating a new person
+      // this is the action of the "create new person" form
+      server.use('/create', (req, res) => {
+          // construct the Person from the form data which is in the request body
+          var newPerson = new Person ({
+          name: req.body.name,
+          age: req.body.age,
+          });
+
+          // save the person to the database
+          newPerson.save( (err) => {
+          if (err) {
+            res.type('html').status(200);
+            res.write('uh oh: ' + err);
+            console.log(err);
+            res.end();
+          }
+          else {
+            // display the "successfull created" page using EJS
+            res.render('created', {person : newPerson});
+          }
+          } );
+      });
+
     
       // Example server-side routing
       server.get('/a', (req, res) => {
