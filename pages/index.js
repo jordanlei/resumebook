@@ -11,7 +11,7 @@ import './css/index.css'
 const Index = (props) => (
   <Layout>
     <SimpleTitle>
-      <h1>Hello, World!</h1>
+      <h1>Welcome to Version 6</h1>
     </SimpleTitle>
     <div className= "light-container">
       <StyleDiv> 

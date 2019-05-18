@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
+require('dotenv').config();
 
 // the host:port must match the location where you are running MongoDB
 // the "myDatabase" part can be anything you like
-mongoose.connect('mongodb://127.0.0.1:27017/myDatabase');
+mongoose.connect(process.env.MONGO_DB_CONNECTION);
 
 var Schema = mongoose.Schema;
 

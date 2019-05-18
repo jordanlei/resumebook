@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
+require('dotenv').config();
 
 // import the Person class from Person.js
 var Person = require('../schemas/Person.js');
 
 
 router.post('/createperson', function(req, res, next) {
-  console.log("GOT HERE")
   // construct the Person from the form data which is in the request body
   var person = new Person({
     name: req.body.name,

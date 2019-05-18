@@ -11,6 +11,7 @@ var cors = require("cors");
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const apiRouter= require('./server/routes/api.js')
+require('dotenv').config();
 
 // Multi-process to utilize all CPU cores.
 if (!dev && cluster.isMaster) {
@@ -32,6 +33,7 @@ if (!dev && cluster.isMaster) {
   nextApp.prepare()
     .then(() => {
       const server = express();
+      
 
       if (!dev) {
         // Enforce SSL & HSTS in production
