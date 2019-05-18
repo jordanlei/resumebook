@@ -1,13 +1,15 @@
 import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/standard.css'
 
+const divStyle = {
+  paddingLeft: 10+'%',
+  paddingRight: 10+ '%'
+}
 
 const Layout = props => (
-  <div className= "layout">
-    <Header />
-    <div>
-      {props.children}
+  <div>
+    <div style={divStyle}>
+        {props.children}
     </div>
   </div>
 )

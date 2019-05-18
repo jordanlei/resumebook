@@ -1,4 +1,4 @@
-.landing-container{
+.layout{
   overflow: hidden;
   position: relative;
 }
@@ -11,35 +11,35 @@
   text-align: right;
 }
 
-.landing-container h1{
+.layout h1{
 	text-transform: none;
-	font-weight: 400;
+	font-weight: 100;
 	font-size: 5em;
 	letter-spacing: 4px;
 }
 
-.landing-container h2{
+.layout h2{
     text-transform: none;
     font-weight: 100;
     font-size: 4em;
     letter-spacing: 2px;
 }
 
-.landing-container h3{
+.layout h3{
 	text-transform: none;
 	font-weight: 100;
   font-size: 3.5em;
   letter-spacing: 1px;
 }
 
-.landing-container h4{
+.layout h4{
 	text-transform: none;
 	font-weight: 100;
   font-size: 2.5em;
   letter-spacing: 1px;
 }
 
-.landing-container p{
+.layout p{
 	text-transform: none;
 	font-weight: 150;
   font-size: 1.5em;
