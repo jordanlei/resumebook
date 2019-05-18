@@ -13,6 +13,8 @@ router.post('/createperson', function(req, res, next) {
     age: req.body.age
   });
   console.log("Person Created")
+  console.log(process.env.MONGO_DB_CONNECTION)
+  console.log("Other Log")
   // save the person to the database
   person.save(err => {
     if (err) {
