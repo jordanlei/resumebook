@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "heroku": "^7.24.3",
     "isomorphic-unfetch": "^3.0.0",
+    "mongodb": "^3.2.5",
     "mongoose": "^5.5.9",
     "morgan": "^1.9.1",
     "next": "^8.0.3",
