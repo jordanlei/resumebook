@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button, FormText, Row, Col } from 'reactstrap';
 import Layout from './components/Layout';
-const port = process.env.PORT || 3000;
 
 class People extends Component {
     constructor(props) {
@@ -28,7 +27,6 @@ class People extends Component {
         console.log("got here")
         var json = this.state;
         console.log(json);
-        console.log(`http://localhost:${port}/api/createperson`)
         fetch(`/api/createperson`, {
           method: 'POST',
           headers: {
