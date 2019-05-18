@@ -9,8 +9,6 @@ var logger = require('morgan');
 var cors = require("cors");
 var mongoose = require('mongoose');
 
-var uri= process.env.MONGO_DB_CONNECTION
-mongoose.connect(uri);
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;

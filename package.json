@@ -27,6 +27,6 @@
     "reactstrap": "^8.0.0"
   },
   "engines": {
-    "node": "10.x"
+    "node": "10.15.3"
   }
 }
