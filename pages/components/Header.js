@@ -47,19 +47,16 @@ class Header extends Component{
               <NavItem>
                 <NavLink href="../batman">Batman</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="../people">People</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Users
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
+                    <NavLink href="../people-form">Create</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    Option 2
+                    <NavLink href="../people-form">View All</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>

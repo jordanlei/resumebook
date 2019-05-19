@@ -2,21 +2,21 @@ var express = require('express');
 var router = express.Router();
 require('dotenv').config();
 
-// import the Person class from Person.js
-var Person = require('../schemas/Person.js');
+// import the User class from User.js
+var User = require('../schemas/User.js');
 
 
-router.post('/createperson', function(req, res, next) {
-  // construct the Person from the form data which is in the request body
-  var person = new Person({
+router.post('/createuser', function(req, res, next) {
+  // construct the User from the form data which is in the request body
+  var user = new User({
     name: req.body.name,
     age: req.body.age
   });
-  console.log("Person Created")
+  console.log("User Created")
   console.log(process.env.MONGO_DB_CONNECTION)
   console.log("Other Log")
-  // save the person to the database
-  person.save(err => {
+  // save the user to the database
+  user.save(err => {
     if (err) {
       res.type('html').status(400);
       res.write('uh oh: ' + err);
@@ -30,19 +30,19 @@ router.post('/createperson', function(req, res, next) {
   });
 });
 
-router.get('/findallpersons', function(req, res, next) {
+router.get('/findallusers', function(req, res, next) {
     // find all of the policymakers
-    Person.find((err, persons) => {
+    User.find((err, users) => {
       if (err) {
         res.type('html').status(200);
         console.log('uh oh' + err);
         res.write(err);
-      } else if (!persons) {
+      } else if (!users) {
         res.type('html').status(400);
         res.write('No records are available at this time.');
         res.end();
       } else {
-        res.json(persons);
+        res.json(users);
       }
     });
   });

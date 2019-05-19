@@ -71,17 +71,17 @@ if (!dev && cluster.isMaster) {
         maxAge: dev ? '0' : '365d'
       }));
 
-      // route for creating a new person
-      // this is the action of the "create new person" form
+      // route for creating a new user
+      // this is the action of the "create new user" form
       server.use('/create', (req, res) => {
-          // construct the Person from the form data which is in the request body
-          var newPerson = new Person ({
+          // construct the User from the form data which is in the request body
+          var newUser = new User ({
           name: req.body.name,
           age: req.body.age,
           });
 
-          // save the person to the database
-          newPerson.save( (err) => {
+          // save the user to the database
+          newUser.save( (err) => {
           if (err) {
             res.type('html').status(200);
             res.write('uh oh: ' + err);
@@ -90,7 +90,7 @@ if (!dev && cluster.isMaster) {
           }
           else {
             // display the "successfull created" page using EJS
-            res.render('created', {person : newPerson});
+            res.render('created', {user : newUser});
           }
           } );
       });

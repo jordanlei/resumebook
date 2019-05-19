@@ -9,15 +9,15 @@ mongoose.connect(uri);
 
 var Schema = mongoose.Schema;
 
-var personSchema = new Schema({
+var userSchema = new Schema({
 	name: {type: String, required: true, unique: true},
 	age: Number
     });
 
-// export personSchema as a class called Person
-module.exports = mongoose.model('Person', personSchema);
+// export userSchema as a class called User
+module.exports = mongoose.model('User', userSchema);
 
-personSchema.methods.standardizeName = function() {
+userSchema.methods.standardizeName = function() {
     this.name = this.name.toLowerCase();
     return this.name;
 }
