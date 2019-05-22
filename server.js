@@ -8,11 +8,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 var mongoose = require('mongoose');
-
+const httpProxy = require("http-proxy");
+const proxy = httpProxy.createProxyServer();
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const apiRouter= require('./server/routes/api.js')
+const loginRouter= require('./server/routes/login.js')
+const profileRouter= require('./server/routes/profile.js')
+
 require('dotenv').config();
 
 // Multi-process to utilize all CPU cores.
@@ -62,8 +66,8 @@ if (!dev && cluster.isMaster) {
       server.use(express.static(path.join(__dirname, 'public')));
       server.use(cors());
       server.use("/api", apiRouter); // NEW
-      
-
+      server.use("/auth", loginRouter); // NEW
+      server.use("/userprofile", profileRouter);
 
       // Static files
       // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
@@ -71,31 +75,6 @@ if (!dev && cluster.isMaster) {
         maxAge: dev ? '0' : '365d'
       }));
 
-      // route for creating a new user
-      // this is the action of the "create new user" form
-      server.use('/create', (req, res) => {
-          // construct the User from the form data which is in the request body
-          var newUser = new User ({
-          name: req.body.name,
-          age: req.body.age,
-          });
-
-          // save the user to the database
-          newUser.save( (err) => {
-          if (err) {
-            res.type('html').status(200);
-            res.write('uh oh: ' + err);
-            console.log(err);
-            res.end();
-          }
-          else {
-            // display the "successfull created" page using EJS
-            res.render('created', {user : newUser});
-          }
-          } );
-      });
-
-    
       // Example server-side routing
       server.get('/a', (req, res) => {
         return nextApp.render(req, res, '/b', req.query)
@@ -110,6 +89,21 @@ if (!dev && cluster.isMaster) {
         const actualPage = '/post'
         const queryParams = { id: req.params.id }
         nextApp.render(req, res, actualPage, queryParams)
+      })
+
+      server.get("/login", (req, res)=>{
+        console.log("this is the login page")
+        nextApp.render(req, res, "/login", req.query)
+      })
+
+      server.get("/profile", (req, res)=>{
+        nextApp.render(req, res, "/profile", req.query)
+      })
+
+      server.get("/login/profile.js", (req, res)=>{
+        proxy.web(req, res, { target }, error => {
+          console.log("Error!", error);
+        });
       })
 
       server.get('/view/:id', (req, res) => {

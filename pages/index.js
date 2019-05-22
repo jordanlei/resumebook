@@ -1,9 +1,10 @@
 import React from 'react'
 import './css/index.css'
 import App from './app'
+import Login from './login'
 
 const Index = (props) => (
-  <App/>
+  <Login/>
 )
 
 export default Index
