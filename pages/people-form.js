@@ -44,12 +44,13 @@ class PeopleForm extends Component {
     }
 
     render() {
+        var thisname= 'someonee'
         if(this.state.submitted)
         {
             console.log("Redirecting ...")
             Router.push({
-                pathname: '/batman',
-                query: { name: 'Someone' }
+                pathname: `/view/${thisname}`,
+                query: { id: thisname }
             })
         }
         return (

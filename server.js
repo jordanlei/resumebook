@@ -112,6 +112,12 @@ if (!dev && cluster.isMaster) {
         nextApp.render(req, res, actualPage, queryParams)
       })
 
+      server.get('/view/:id', (req, res) => {
+        const actualPage = '/people-viewall'
+        const queryParams = { id: req.params.id }
+        nextApp.render(req, res, actualPage, queryParams)
+      })
+
       // Default catch-all renders Next app
       server.get('*', (req, res) => {
         // res.set({
