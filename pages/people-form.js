@@ -30,6 +30,7 @@ class PeopleForm extends Component {
 
     handleSubmit(event) {
         var json = this.state;
+        console.log(json)
         fetch(`/api/createuser`, {
           method: 'POST',
           headers: {
