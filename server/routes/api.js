@@ -9,12 +9,11 @@ var User = require('../schemas/User.js');
 router.post('/createuser', function(req, res, next) {
   // construct the User from the form data which is in the request body
   var user = new User({
-    name: req.body.name,
+    username: req.body.username,
+    password: req.body.password,
     age: req.body.age
   });
   console.log("User Created")
-  console.log(process.env.MONGO_DB_CONNECTION)
-  console.log("Other Log")
   // save the user to the database
   user.save(err => {
     if (err) {
@@ -26,6 +25,27 @@ router.post('/createuser', function(req, res, next) {
       // send back succesful
       res.type('html').status(200);
       res.json(req.body);
+    }
+  });
+});
+
+router.post('/finduser', function(req, res, next) {
+  var searchname = req.body.username;
+  // find the policymaker
+  console.log("Finding Username")
+  User.findOne({ username: searchname }, (err, user) => {
+    if (err) {
+      res.type('html').status(200);
+      console.log('uh oh' + err);
+      res.write(err);
+    } else if (!user) {
+      res.type('html').status(400);
+      res.write('There are no users with that name');
+      res.end();
+    } else {
+      res.type('html').status(200);
+      console.log(user);
+      res.json(user);
     }
   });
 });

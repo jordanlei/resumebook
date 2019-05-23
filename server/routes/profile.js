@@ -8,7 +8,7 @@ const profile = async (req, res) => {
 
   const auth = await req.headers.authorization.token
   console.log(auth)
-  const url = `https://api.github.com/user/jordanlei`
+  const url = `https://api.github.com/user/24819405`
   console.log(url)
 
   try {
@@ -18,7 +18,8 @@ const profile = async (req, res) => {
       const js = await response.json()
       // Need camelcase in the frontend
       const data = Object.assign({}, { avatarUrl: js.avatar_url }, js)
-      send(res, 200, { data })
+      console.log(data)
+      send(res, 200, { data: data })
     } else {
       send(res, response.status, response.statusText)
     }

@@ -1,9 +1,13 @@
 import { Component } from 'react'
 import fetch from 'isomorphic-unfetch'
-import Layout from './components/Layout'
+import SimpleTitle from './components/SimpleTitle';
+import { Form, FormGroup, Label, Input, Button, FormText, Row, Col } from 'reactstrap';
+import Layout from './components/Layout';
+import StyleDiv from './components/StyleDiv';
 import { login } from './utils/auth'
 
 class Login extends Component {
+
   static getInitialProps ({ req }) {
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 
@@ -15,102 +19,111 @@ class Login extends Component {
   }
 
   constructor (props) {
-    super(props)
+    super(props);
+    this.state = {
+    username: '',
+    password: '',
+    error: '',
+    submitted: false
+    };
 
-    this.state = { username: '', error: '' }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange (event) {
-    this.setState({ username: event.target.value })
-  }
+    handleInputChange(event) {
+    const target = event.target;
+    const name = target.id;
+    const value = target.value;
+    this.setState({
+        [name]: value,
+    });
+    }
 
   async handleSubmit (event) {
     event.preventDefault()
     const username = this.state.username
-    const url = this.props.apiUrl
     console.log("Submitted ..."+ JSON.stringify({username}))
 
     try {
-      const response = await fetch('/auth/', {
+      const response = await fetch('/api/finduser', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
       })
+
       if (response.ok) {
-        const { token } = await response.json()
-        console.log(token)
-        login({ token })
+        response.json().then(res => 
+            {
+                console.log(res.password)
+                if(res.password== this.state.password)
+                {
+                    const token= this.state.username
+                    console.log("sign in now!")
+                    console.log(token)
+                    login(token)
+                }
+                else
+                {
+                    this.setState({error: "Incorrect Username or Password"})
+                }
+            })
       } else {
-        console.log('Login failed.')
         // https://github.com/developit/unfetch#caveats
-        let error = new Error(response.statusText)
-        error.response = response
-        return Promise.reject(error)
+        this.setState({error: "Incorrect Username or Password"})
       }
     } catch (error) {
       console.error(
         'You have an error in your code or there are Network issues.',
         error
       )
-      throw new Error(error)
     }
   }
 
   render () {
+    var errorMessage= <div></div>
+    if(this.state.error)
+    {
+        errorMessage= <div>Error: {this.state.error}</div>
+    }
+
     return (
-      <Layout>
-        <div className='login'>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor='username'>GitHub username</label>
+        <Layout>
+        <SimpleTitle>
+            <h3>Sign In Existing User</h3>
+        </SimpleTitle>
+        <div className= "light-container">
+        <StyleDiv>
+            <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
+                {errorMessage}
+                <FormGroup>
+                    <Label for="username">Username</Label>
+                    <Input
+                        type="text"
+                        id="username"
+                        value={this.state.username}
+                        onChange={this.handleInputChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                        type="password"
+                        id="password"
+                        value={this.state.password}
+                        onChange={this.handleInputChange}
+                    />
+                </FormGroup>
 
-            <input
-              type='text'
-              id='username'
-              name='username'
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-
-            <button type='submit'>Login</button>
-
-            <p className={`error ${this.state.error && 'show'}`}>
-              {this.state.error && `Error: ${this.state.error}`}
-            </p>
-          </form>
+                <div className="center-row" id="submit">
+                    <Button id="submit" onClick={this.handleSubmit}>
+                            Submit
+                    </Button>
+                </div>
+            </Form>
+        </StyleDiv>
         </div>
-        <style jsx>{`
-          .login {
-            max-width: 340px;
-            margin: 0 auto;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-          }
-          form {
-            display: flex;
-            flex-flow: column;
-          }
-          label {
-            font-weight: 600;
-          }
-          input {
-            padding: 8px;
-            margin: 0.3rem 0 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-          }
-          .error {
-            margin: 0.5rem 0 0;
-            display: none;
-            color: brown;
-          }
-          .error.show {
-            display: block;
-          }
-        `}</style>
-      </Layout>
+        </Layout>
     )
   }
 }

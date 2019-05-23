@@ -9,7 +9,8 @@ class PeopleForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        name: '',
+        username: '',
+        password: '',
         age: '',
         submitted: false
         };
@@ -40,7 +41,7 @@ class PeopleForm extends Component {
         })
           .then(res => res.text())
           .then(res => console.log(res));
-        this.setState({submitted: true});
+        //this.setState({submitted: true});
     }
 
     render() {
@@ -61,11 +62,20 @@ class PeopleForm extends Component {
             <StyleDiv>
                 <Form style={{paddingLeft: "20%", paddingRight:"20%", paddingTop:"5%"}}>
                     <FormGroup>
-                        <Label for="name">Name?</Label>
+                        <Label for="username">Username</Label>
                         <Input
                             type="text"
-                            id="name"
-                            value={this.state.name}
+                            id="username"
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="password">Password</Label>
+                        <Input
+                            type="password"
+                            id="password"
+                            value={this.state.password}
                             onChange={this.handleInputChange}
                         />
                     </FormGroup>

@@ -2,76 +2,72 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import nextCookie from 'next-cookies'
 import Layout from './components/Layout'
+import SimpleTitle from './components/SimpleTitle';
+import { Form, FormGroup, Label, Input, Button, FormText, Row, Col } from 'reactstrap';
+import StyleDiv from './components/StyleDiv'
 import { withAuthSync } from './utils/auth'
+import { Component } from 'react'
+import { logout } from './utils/auth'
 
-const Profile = props => {
-  const { name, login, bio, avatarUrl } = props.data
+class Profile extends Component{
 
-  return (
-    <Layout>
-      <img src={avatarUrl} alt='Avatar' />
-      <h1>{name}</h1>
-      <p className='lead'>{login}</p>
-      <p>{bio}</p>
-
-      <style jsx>{`
-        img {
-          max-width: 200px;
-          border-radius: 0.5rem;
+    constructor (props) {
+        super(props)
+        this.state = {
+            username: '',
+            password: ''
         }
-        h1 {
-          margin-bottom: 0;
-        }
-        .lead {
-          margin-top: 0;
-          font-size: 1.5rem;
-          font-weight: 300;
-          color: #666;
-        }
-        p {
-          color: #6a737d;
-        }
-      `}</style>
-    </Layout>
-  )
-}
 
-Profile.getInitialProps = async ctx => {
-  // We use `nextCookie` to get the cookie and pass the token to the
-  // frontend in the `props`.
-  const { token } = nextCookie(ctx)
-  console.log("got to the profile with the following token")
-  console.log(token)
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-
-  const apiUrl = process.browser
-    ? `${protocol}://${window.location.host}/api/profile.js`
-    : `${protocol}://${ctx.req.headers.host}/api/profile.js`
-
-  const redirectOnError = () =>
-    process.browser
-      ? Router.push('/login')
-      : ctx.res.writeHead(301, { Location: '/login' })
-
-  try {
-    const response = await fetch('/userprofile/', {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: JSON.stringify({ token })
-      }
-    })
-
-    if (response.ok) {
-      return await response.json()
-    } else {
-      // https://github.com/developit/unfetch#caveats
-      return redirectOnError()
+        //this.handleChange = this.handleChange.bind(this)
+        this.handleLogout = this.handleLogout.bind(this)
     }
-  } catch (error) {
-    // Implementation or Network error
-    return redirectOnError()
-  }
+
+    componentDidMount() {
+        fetch('/api/finduser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: this.props.token })})
+          .then(response => response.json())
+          .then(data => this.setState({data}))
+    }
+
+    async handleLogout(event){
+        logout()
+    }
+
+    
+
+    render(){
+        if(this.state.data)
+        {
+            return (
+                <Layout>
+                    <SimpleTitle>
+                        <h3>Hello, {this.state.data.username}!</h3>
+                    </SimpleTitle>
+                    <div className= "light-container" style= {{height: "500px"}}>
+                    <StyleDiv>
+                        <div className= "center-row">
+                            <Button id="logout" onClick={this.handleLogout}>Logout</Button>
+                        </div>                            
+                    </StyleDiv>
+                    </div>
+                </Layout>
+                
+            )
+        }
+        else
+        {
+            return(
+                <Layout>
+                    <SimpleTitle>
+                        <h3>Please wait... </h3>
+                    </SimpleTitle>
+                </Layout>
+            )
+        }        
+    }
+    
 }
 
 export default withAuthSync(Profile)

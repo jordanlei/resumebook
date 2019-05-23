@@ -78,5 +78,6 @@ export const logout = () => {
     cookie.remove("token");
     // To trigger the event listener we save some random data into the `logout` key
     window.localStorage.setItem("logout", Date.now()); // new
+    console.log("logging out...")
     Router.push("/login");
   };
