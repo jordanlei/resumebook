@@ -7,7 +7,7 @@ import StyleDiv from './components/StyleDiv';
 import { login } from './utils/auth'
 
 class Login extends Component {
-  
+
   constructor (props) {
     super(props);
     this.state = {
@@ -80,7 +80,7 @@ class Login extends Component {
         <SimpleTitle>
             <h3>Sign In Existing User</h3>
         </SimpleTitle>
-        <div className= "light-container">
+        <div className= "light-container" style={{height: "80vh"}}>
         <StyleDiv>
             <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
                 {errorMessage}

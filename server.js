@@ -66,24 +66,12 @@ if (!dev && cluster.isMaster) {
       server.use(express.static(path.join(__dirname, 'public')));
       server.use(cors());
       server.use("/api", apiRouter); // NEW
-      server.use("/auth", loginRouter); // NEW
-      server.use("/userprofile", profileRouter);
-
+      
       // Static files
       // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
       server.use('/static', express.static(path.join(__dirname, 'static'), {
         maxAge: dev ? '0' : '365d'
       }));
-
-      // Example server-side routing
-      server.get('/a', (req, res) => {
-        return nextApp.render(req, res, '/b', req.query)
-      })
-
-      // Example server-side routing
-      server.get('/b', (req, res) => {
-        return nextApp.render(req, res, '/a', req.query)
-      })
 
       server.get('/p/:id', (req, res) => {
         const actualPage = '/post'

@@ -58,6 +58,7 @@ class PeopleForm extends Component {
             <SimpleTitle>
                 <h3>Create a New User</h3>
             </SimpleTitle>
+            <div className= "light-container">
             <StyleDiv>
                 <Form style={{paddingLeft: "20%", paddingRight:"20%", paddingTop:"5%"}}>
                     <FormGroup>
@@ -94,6 +95,7 @@ class PeopleForm extends Component {
                     </div>
                 </Form>
             </StyleDiv>
+            </div>
         </Layout>
         );
     }

@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import Layout from './components/Layout';
+import SimpleTitle from './components/SimpleTitle'
 
 class About extends Component {
   
   render() {
     return (
       <Layout>
-        <div className="dark-container" style={{paddingBottom: 2+"%"}}>            
+        <SimpleTitle>
+          <h3>About</h3>
+        </SimpleTitle>
+        <div className="light-container" style={{paddingBottom: 2+"%", minHeight: "60vh"}}>            
           <div>
           <Row>
             <Col md={4}>
-              <h3>
-                I love drawing, writing, making music, 
-                and training AI to beat me at all of those things
-              </h3>
+              <h4>
+                Hi. I'm Jordan.
+              </h4>
             </Col>
             <Col md={1}>
             </Col>
             <Col md={7}>
               <p>
-              I'm a junior in the <b>Jerome Fisher Program in 
+              I'm a senior in the <b>Jerome Fisher Program in 
               Management and Technology</b> at the <b>University of Pennsylvania.</b> <br/>
-              I consider myself an inquisitive person - I love figuring 
-              out what makes things tick - maybe that's why I chose to 
-              pursue <b>Computer Science</b> and <b>Behavioral Economics</b>!
-              It's probably also why I love doing research. <br/>
-              I have a nerdy passion for <b>Deep Learning and Artificial 
-              Intelligence</b>. Before the singularity, you'll find me painting, 
-              playing the guitar, or snuggling up with a good book. <br/>
+              I made this website as a fun summer project. It started out as a project to
+              make a <b>personal blog</b>, and quickly developed into a much more involved
+              rabbit hole that took roughly a week to complete.
+              Isn't this too much overhead for a personal blog, 
+              you might ask? Isn't this, like, super extra?<br/>
+              Clearly, we haven't met. Hi. I'm Jordan. 
               </p>
             </Col>
           </Row>

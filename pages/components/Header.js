@@ -44,9 +44,6 @@ class Header extends Component{
               <NavItem>
                 <NavLink href="../about">About</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="../batman">Batman</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Users
@@ -56,7 +53,7 @@ class Header extends Component{
                     <NavLink href="../people-form">Create</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href="../people-form">View All</NavLink>
+                    <NavLink href="../login">Login</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>

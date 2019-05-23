@@ -4,7 +4,7 @@ import '../css/standard.css'
 
 const titleStyle= {
     textAlign: 'center', 
-    height: 300 + 'px',
+    height: '40vh',
     backgroundImage: 'linear-gradient(rgb(194, 202, 221),  #434d66)',
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
