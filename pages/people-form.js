@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import { Form, FormGroup, Label, Input, Button, FormText, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Alert, FormText, Row, Col } from 'reactstrap';
 import SimpleTitle from './components/SimpleTitle';
 import Layout from './components/Layout';
 import StyleDiv from './components/StyleDiv';
@@ -12,6 +12,7 @@ class PeopleForm extends Component {
         username: '',
         password: '',
         age: '',
+        error: '',
         submitted: false
         };
 
@@ -27,7 +28,7 @@ class PeopleForm extends Component {
             [name]: value,
         });
     }
-
+/*
     handleSubmit(event) {
         var json = this.state;
         console.log(json)
@@ -42,16 +43,49 @@ class PeopleForm extends Component {
           .then(res => console.log(res));
         //this.setState({submitted: true});
     }
+*/
+    async handleSubmit (event) {
+        var json = this.state;
+        console.log(json)
+    
+        try {
+          const response = await fetch(`/api/createuser`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(json),
+          })
+    
+          if (response.ok) {
+            response.json().then(res => 
+                {
+                    console.log(res)
+                    this.setState({error: '', submitted: true})
+                })
+          } else {
+            // https://github.com/developit/unfetch#caveats
+            this.setState({error: "Username is Taken"})
+          }
+        } catch (error) {
+          console.error(
+            'You have an error in your code or there are Network issues.',
+            error
+          )
+        }
+      }
 
     render() {
-        var thisname= 'someonee'
+        var errorMessage= <div></div>
+        if(this.state.error)
+        {
+            errorMessage= <Alert color= 'danger'>{this.state.error}</Alert>
+        }
+
         if(this.state.submitted)
         {
             console.log("Redirecting ...")
-            Router.push({
-                pathname: `/view/${thisname}`,
-                query: { id: thisname }
-            })
+            Router.push('/login')
         }
         return (
         <Layout>
@@ -60,7 +94,8 @@ class PeopleForm extends Component {
             </SimpleTitle>
             <div className= "light-container">
             <StyleDiv>
-                <Form style={{paddingLeft: "20%", paddingRight:"20%", paddingTop:"5%"}}>
+                <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
+                    {errorMessage}
                     <FormGroup>
                         <Label for="username">Username</Label>
                         <Input

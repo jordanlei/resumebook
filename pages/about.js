@@ -28,8 +28,8 @@ class About extends Component {
               I made this website as a fun summer project. It started out as a project to
               make a <b>personal blog</b>, and quickly developed into a much more involved
               rabbit hole that took roughly a week to complete.
-              Isn't this too much overhead for a personal blog, 
-              you might ask? Isn't this, like, super extra?<br/>
+              <i> Isn't this too much overhead for a personal blog, 
+              you might ask? Isn't this, like, super extra?</i><br/><br/>
               Clearly, we haven't met. Hi. I'm Jordan. 
               </p>
             </Col>

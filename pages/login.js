@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import fetch from 'isomorphic-unfetch'
 import SimpleTitle from './components/SimpleTitle';
-import { Form, FormGroup, Label, Input, Button, FormText, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Alert, FormText, Row, Col } from 'reactstrap';
 import Layout from './components/Layout';
 import StyleDiv from './components/StyleDiv';
 import { login } from './utils/auth'
@@ -72,7 +72,7 @@ class Login extends Component {
     var errorMessage= <div></div>
     if(this.state.error)
     {
-        errorMessage= <div>Error: {this.state.error}</div>
+        errorMessage= <Alert color='danger'>{this.state.error}</Alert>
     }
 
     return (
@@ -80,7 +80,7 @@ class Login extends Component {
         <SimpleTitle>
             <h3>Sign In Existing User</h3>
         </SimpleTitle>
-        <div className= "light-container" style={{height: "80vh"}}>
+        <div className= "light-container" style={{height: "60vh"}}>
         <StyleDiv>
             <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
                 {errorMessage}
