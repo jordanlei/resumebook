@@ -14,8 +14,6 @@ const proxy = httpProxy.createProxyServer();
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const apiRouter= require('./server/routes/api.js')
-const loginRouter= require('./server/routes/login.js')
-const profileRouter= require('./server/routes/profile.js')
 
 require('dotenv').config();
 
@@ -66,7 +64,7 @@ if (!dev && cluster.isMaster) {
       server.use(express.static(path.join(__dirname, 'public')));
       server.use(cors());
       server.use("/api", apiRouter); // NEW
-      
+
       // Static files
       // https://github.com/zeit/next.js/tree/4.2.3#user-content-static-file-serving-eg-images
       server.use('/static', express.static(path.join(__dirname, 'static'), {
