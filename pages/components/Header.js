@@ -35,8 +35,8 @@ class Header extends Component{
 
   render(){
     return(
-      <div>
-        <Navbar color="light" light expand="md">
+      <div style= {{position: "fixed", width: "100vw", backgroundColor: "rgba(0, 0, 0, 0.7)"}}>
+        <Navbar dark expand="md" style= {{paddingLeft: "3%", paddingRight: "3%"}}>
           <NavbarBrand href="/">Home</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -48,22 +48,21 @@ class Header extends Component{
                 <DropdownToggle nav caret>
                   Users
                 </DropdownToggle>
-                <DropdownMenu right>
+                <DropdownMenu className= "dropdown" right style= {{backgroundColor: "rgba(0, 0, 0, 0.5)", marginTop: "7px"}}>
                   <DropdownItem>
-                    <NavLink href="../people-form">Create</NavLink>
+                    <NavLink href="../register">Create</NavLink>
                   </DropdownItem>
                   <DropdownItem>
                     <NavLink href="../login">Login</NavLink>
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>
+        <style jsx>{`
+        
+        `}</style>
       </div>
     )
   }

@@ -4,7 +4,7 @@ import '../css/standard.css'
 
 const titleStyle= {
     textAlign: 'center', 
-    height: '40vh',
+    height: '50vh',
     backgroundImage: 'linear-gradient(rgb(194, 202, 221),  #434d66)',
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
@@ -13,7 +13,7 @@ const titleStyle= {
   }
 
 const spanStyle= {
-paddingTop: "80px"
+paddingTop: "20vh"
 }
   
 

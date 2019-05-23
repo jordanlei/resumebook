@@ -10,9 +10,14 @@ mongoose.connect(uri);
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
+    firstName: {type: String, required: true, unique: false},
+    lastName: {type: String, required: true, unique: false},
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true, unique: false},
-	age: Number
+    year: Number,
+    email: String,
+    bio: String,
+    funFact: String, 
     });
 
 // export userSchema as a class called User

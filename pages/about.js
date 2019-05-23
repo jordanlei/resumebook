@@ -25,7 +25,7 @@ class About extends Component {
               <p>
               I'm a senior in the <b>Jerome Fisher Program in 
               Management and Technology</b> at the <b>University of Pennsylvania.</b> <br/>
-              I made this website as a fun summer project. It started out as a project to
+              I made this website as a fun summer project. It started out as an attempt to
               make a <b>personal blog</b>, and quickly developed into a much more involved
               rabbit hole that took roughly a week to complete.
               <i> Isn't this too much overhead for a personal blog, 

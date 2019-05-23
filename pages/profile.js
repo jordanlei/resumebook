@@ -43,7 +43,7 @@ class Profile extends Component{
             return (
                 <Layout>
                     <SimpleTitle>
-                        <h3>Hello, {this.state.data.username}!</h3>
+                        <h3>Hello, {this.state.data.firstName}!</h3>
                     </SimpleTitle>
                     <div className= "light-container" style= {{height: "500px"}}>
                     <StyleDiv>

@@ -54,15 +54,14 @@
   letter-spacing: 1px;
 }
 
-
-
-
 .layout p{
 	text-transform: none;
 	font-weight: 150;
   font-size: 20px;
   letter-spacing: 1px;
 }
+
+.dropdown-item:hover{background-color: rgba(0, 0, 0, 0.2);}
 
 .dark-container{
   color: rgba(255, 255, 255, 0.9);

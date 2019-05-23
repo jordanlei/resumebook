@@ -9,9 +9,14 @@ var User = require('../schemas/User.js');
 router.post('/createuser', function(req, res, next) {
   // construct the User from the form data which is in the request body
   var user = new User({
+    firstName: req.body.firstName, 
+    lastName: req.body.firstName,
     username: req.body.username,
     password: req.body.password,
-    age: req.body.age
+    year: req.body.year,
+    email: req.body.email, 
+    bio: req.body.bio, 
+    funFact: req.body.funFact
   });
   console.log("User Created")
   // save the user to the database
