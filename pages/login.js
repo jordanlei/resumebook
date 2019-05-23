@@ -7,17 +7,7 @@ import StyleDiv from './components/StyleDiv';
 import { login } from './utils/auth'
 
 class Login extends Component {
-
-  static getInitialProps ({ req }) {
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-
-    const apiUrl = process.browser
-      ? `${protocol}://${window.location.host}/login/login.js`
-      : `${protocol}://${req.headers.host}/login/login.js`
-
-    return { apiUrl }
-  }
-
+  
   constructor (props) {
     super(props);
     this.state = {
@@ -58,7 +48,8 @@ class Login extends Component {
                 if(res.password== this.state.password)
                 {
                     const token= this.state.username
-                    console.log("Logging in...")
+                    console.log("Signing in")
+                    login(token)
                 }
                 else
                 {
