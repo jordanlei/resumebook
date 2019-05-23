@@ -92,18 +92,11 @@ if (!dev && cluster.isMaster) {
       })
 
       server.get("/login", (req, res)=>{
-        console.log("this is the login page")
         nextApp.render(req, res, "/login", req.query)
       })
 
       server.get("/profile", (req, res)=>{
         nextApp.render(req, res, "/profile", req.query)
-      })
-
-      server.get("/login/profile.js", (req, res)=>{
-        proxy.web(req, res, { target }, error => {
-          console.log("Error!", error);
-        });
       })
 
       server.get('/view/:id', (req, res) => {

@@ -55,13 +55,10 @@ class Login extends Component {
       if (response.ok) {
         response.json().then(res => 
             {
-                console.log(res.password)
                 if(res.password== this.state.password)
                 {
                     const token= this.state.username
-                    console.log("sign in now!")
-                    console.log(token)
-                    login(token)
+                    console.log("Logging in...")
                 }
                 else
                 {

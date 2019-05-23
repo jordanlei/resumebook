@@ -41,8 +41,6 @@ Profile.getInitialProps = async ctx => {
   // We use `nextCookie` to get the cookie and pass the token to the
   // frontend in the `props`.
   const { token } = nextCookie(ctx)
-  console.log("got to the profile with the following token")
-  console.log(token)
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 
   const apiUrl = process.browser

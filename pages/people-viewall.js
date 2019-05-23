@@ -21,7 +21,6 @@ const PeopleViewAll = props => (
   
   PeopleViewAll.getInitialProps = async function(context) {
     var content= context.query
-    console.log(content)
     return {content}
   }
   
