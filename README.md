@@ -1,5 +1,6 @@
 
-# Next.js w/ Custom Express Server example for Heroku
+# Resume Book Template
+Note that this is a continuation of the project in the next-js-env repository. 
 
 ## How to use
 
