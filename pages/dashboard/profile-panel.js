@@ -284,8 +284,7 @@ class ProfilePanel extends Component {
           <h2 style= {{textAlign: "center"}}>This is Your Profile.</h2>
 
           <Form style={{paddingLeft: "5%", paddingRight:"5%", paddingTop: "2em", paddingBottom: "10%"}}>
-                    {errorMessage}
-                    {saveSuccess}
+                    
                     <h4 style={{textAlign: "center", paddingTop: "1em"}}>General Information</h4>
                     <Row>
                         <Col md={6}>
@@ -666,11 +665,12 @@ class ProfilePanel extends Component {
                         />
                     </FormGroup>
                     <div className="center-row" id="submit">
-                        <Button id="submit" onClick={this.handleSubmit} disabled={this.state.error}>
+                        <Button id="submit" style= {{marginBottom: "2em"}} onClick={this.handleSubmit} disabled={this.state.error}>
                                 Save
                         </Button>
                     </div>
-                    
+                    {errorMessage}
+                    {saveSuccess}
                 </Form>
           </div>
         </Fade>
