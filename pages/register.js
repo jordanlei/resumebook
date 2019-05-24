@@ -98,7 +98,16 @@ class Register extends Component {
     }
 
     async handleSubmit (event) {
-        var json = this.state;
+        var json = {
+            username: this.state.username,
+            password: this.state.password, 
+            firstName: this.state.firstName, 
+            lastName: this.state.lastName, 
+            email: this.state.email,
+            year: this.state.year,
+            bio: this.state.bio, 
+            funFact: this.state.funFact, 
+          };
     
         try {
           const response = await fetch(`/api/createuser`, {
