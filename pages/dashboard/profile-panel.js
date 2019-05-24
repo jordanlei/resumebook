@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, ButtonGroup, Row, Col, 
-  Form, FormGroup, Label, Input, Card} from 'reactstrap';
+  Form, FormGroup, Label, Input, Card, Collapse} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import DashboardMenu from './dashboard-menu';
 import Fade from 'react-reveal/Fade';
@@ -53,12 +53,15 @@ class ProfilePanel extends Component {
       description3: this.props.data.description3, 
 
       industries: this.props.data.industries, 
-      tags: this.props.data.tags
+      tags: this.props.data.tags,
+
+      collapse: false
     }
 
     this.handleInputChange= this.handleInputChange.bind(this)
     this.handleMultiInputChange = this.handleMultiInputChange.bind(this)
     this.handleSubmit= this.handleSubmit.bind(this)
+    this.toggle= this.toggle.bind(this)
   }
 
   handleInputChange(event) {
@@ -227,6 +230,10 @@ class ProfilePanel extends Component {
     }
   }
 
+  toggle() {
+    this.setState(state => ({ collapse: !state.collapse }));
+  }
+
   render() {
     var errorMessage= <div></div>
     if(this.state.error)
@@ -241,7 +248,7 @@ class ProfilePanel extends Component {
     }
 
     var cardStyle={
-      width:"20em", 
+      width:"25em", 
       marginTop: "10vh", 
       marginLeft: "5%", 
       marginRight: "5%",
@@ -249,17 +256,22 @@ class ProfilePanel extends Component {
       backgroundColor: "rgba(255, 255, 255, 0.7)"
     }
 
-    var months= ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    
+    
+
+    var months= ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var monthOptions= months.map((val) => {
       return (<option>{val}</option>)
     })
 
     var year= new Date().getFullYear()
     var yearOptions= []
+    yearOptions.push(<option>{""}</option>)
     for(var i= year-5; i <= year+2; i++)
     {
       yearOptions.push(<option>{i}</option>)
     }
+    
 
     var industries= ["BioTech", "Consulting", "Data Science", 
     "Electrical Engineering", "Investment Banking", "Machine Learning/AI", "Mechanical Engineering", "Nonprofit", 
@@ -269,8 +281,87 @@ class ProfilePanel extends Component {
     })
 
     var selectedIndustries= this.state.industries.map((val) =>{
-      return (<Button style={{margin:"5px"}}>{val}</Button>)
+      return (<Button color="secondary" disabled style={{margin:"5px"}}>{val}</Button>)
     })
+
+
+
+    
+    
+    
+
+    var state= this.state
+
+    var imageStyle=
+      {backgroundImage: "url("+ state.avatar +")", 
+        width: "12em", 
+        height: "12em", 
+        margin: "0 auto",
+        backgroundPosition:"center",
+        backgroundSize:"cover",
+        marginBottom: "1em",
+      }
+
+    var avatar= <div></div>
+    if(state.avatar)
+    {
+      avatar= <Card style={imageStyle}></Card>
+    }
+    var cardContent= 
+    (<div style={{padding: "10%"}}>
+      {avatar}
+      <div style={{textAlign: "center"}}>
+      <h4>{state.firstName} {state.lastName}</h4>
+      <h5><b>Class of {state.year}</b></h5>
+      <Collapse isOpen={this.state.collapse}>
+      <h5><b>{state.phone}</b></h5>
+      </Collapse>
+      <h5><b>{state.email}</b></h5>
+      </div>
+      <h5>
+        <br/>
+        <b>Concentrations: </b>{state.concentrations}<br/>
+        <br/>
+      </h5>
+
+      <Collapse isOpen={this.state.collapse}>
+      <h5>
+        <b>{state.position1}, {state.place1}</b><br/>
+        <i>{state.startMonth1} {state.startYear1} - {state.endMonth1} {state.endYear1}</i><br/>
+        {state.description1}<br/><br/>
+      </h5>
+
+      <h5>
+        <b>{state.position2}, {state.place2}</b><br/>
+        <i>{state.startMonth2} {state.startYear2} - {state.endMonth2} {state.endYear2}</i><br/>
+        {state.description2}<br/><br/>
+      </h5>
+
+      <h5>
+        <b>{state.position3}, {state.place3}</b><br/>
+        <i>{state.startMonth3} {state.startYear3} - {state.endMonth3} {state.endYear3}</i><br/>
+        {state.description3}<br/><br/>
+      </h5>
+      </Collapse>
+
+
+      <h5>
+        <b>Industries: </b><br/>
+        {selectedIndustries}
+      </h5>
+
+      <Collapse isOpen={this.state.collapse}>
+      <h5>
+        <br/>
+        <b>Fun Fact: </b>{state.funFact}<br/>
+        <br/>
+      </h5>
+      </Collapse>
+      
+
+      <Button outline color="secondary" block onClick= {this.toggle}>See More</Button>
+
+    </div>)
 
     return (
       <div className= "dashboard-container" style= {{backgroundImage: "linear-gradient(rgb(36, 52, 88), rgb(8, 17, 44))"}}>
@@ -278,7 +369,7 @@ class ProfilePanel extends Component {
         <Col md={2}>
           <DashboardMenu dark displayPanel={this.props.displayPanel}/>
         </Col>
-        <Col md={6}>
+        <Col md={5}>
         <Fade duration={3000}>
           <div style= {{color: "rgba(255, 255, 255, 0.7)", paddingTop: "10vh"}}>
           <h2 style= {{textAlign: "center"}}>This is Your Profile.</h2>
@@ -300,7 +391,7 @@ class ProfilePanel extends Component {
                         </Col>
                         <Col md={6}>
                         <FormGroup>
-                        <Label for="lastName">Last Name</Label>
+                        <Label for="lastName">Last Name </Label>
                         <Input
                             type="text"
                             id="lastName"
@@ -355,7 +446,7 @@ class ProfilePanel extends Component {
                             type="text"
                             id="position1"
                             value={this.state.position1}
-                            onChange={this.handleInputChange}
+                            onChange={this.handleInputChange }
                         />
                     </FormGroup>
                     <Row>
@@ -653,6 +744,17 @@ class ProfilePanel extends Component {
                         <Label for="industries">Selected:  </Label>
                         {selectedIndustries}
                     </FormGroup>
+
+                    <FormGroup>
+                        <Label for="avatar">Profile Photo Url <br/> 
+                        (try uploading to Imgur, right click "Open Image in New Tab")</Label>
+                        <Input
+                            type="text"
+                            id="avatar"
+                            value={this.state.avatar}
+                            onChange={this.handleInputChange}
+                        />
+                    </FormGroup>
                     
                     <FormGroup>
                         <Label for="funFact">Fun Fact</Label>
@@ -675,16 +777,16 @@ class ProfilePanel extends Component {
           </div>
         </Fade>
         </Col>
-        <Col md={4}>
+        <Col md={5}>
+
           <div style={{position: "fixed", width: "100%", overflowY: "scroll", overflowX:"hidden", height:"100vh"}}>
+          <Fade bottom>
           <Card style={cardStyle}>
-            <div style={{padding: "10%"}}>
-            <h4>{this.state.firstName} {this.state.lastName}</h4>
-            <h5><b>Class of {this.state.year}</b></h5>
-            <p>{this.state.bio}</p>
-            </div>
+            {cardContent}
           </Card>
+          </Fade>
           </div>
+          
         </Col>
       </Row>
       </div>
