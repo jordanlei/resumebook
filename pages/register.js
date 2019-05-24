@@ -96,25 +96,9 @@ class Register extends Component {
                 break
         }
     }
-/*
-    handleSubmit(event) {
-        var json = this.state;
-        console.log(json)
-        fetch(`/api/createuser`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        })
-          .then(res => res.text())
-          .then(res => console.log(res));
-        //this.setState({submitted: true});
-    }
-*/
+
     async handleSubmit (event) {
         var json = this.state;
-        console.log(json)
     
         try {
           const response = await fetch(`/api/createuser`, {
@@ -128,7 +112,6 @@ class Register extends Component {
           if (response.ok) {
             response.json().then(res => 
                 {
-                    console.log(res)
                     this.setState({error: '', submitted: true})
                 })
           } else {

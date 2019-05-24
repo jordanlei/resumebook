@@ -9,7 +9,6 @@ class DashboardMenu extends Component {
   }
 
   displayPanel(event) {
-    console.log(event.target.id);
     this.props.displayPanel(event.target.id);
   }
 

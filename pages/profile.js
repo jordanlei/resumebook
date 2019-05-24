@@ -14,6 +14,7 @@ import './css/dashboard.css'
 import WelcomePanel from './dashboard/welcome-panel';
 import ProfilePanel from './dashboard/profile-panel';
 import SettingsPanel from './dashboard/settings-panel';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Profile extends Component{
 
@@ -28,6 +29,7 @@ class Profile extends Component{
         this.handleLogout = this.handleLogout.bind(this)
         this.displayPanel = this.displayPanel.bind(this)
         this.renderPanel= this.renderPanel.bind(this)
+        this.updateData= this.updateData.bind(this)
     }
 
     componentDidMount() {
@@ -52,11 +54,18 @@ class Profile extends Component{
         console.log(panelName)
         this.setState({ [panelName]: true });
     }
+
+    updateData(newState) {
+        console.log("Updating Data...")
+        this.setState({data: newState});
+    }
     
+
     renderPanel() {
         if (this.state.displayProfile) {
             return (
-                <ProfilePanel data={this.state.data} displayPanel= {this.displayPanel}/>
+                <ProfilePanel data={this.state.data} displayPanel= {this.displayPanel} 
+                updateData= {this.updateData}/>
             );
         } else if (this.state.displaySettings) {
             return (
@@ -71,33 +80,6 @@ class Profile extends Component{
     }
 
     render(){
-        /*
-        if(this.state.data)
-        {
-            return (
-                <div className= 'layout'>
-                    <Row>
-                        <Col md={2}>
-                            <DashboardMenu displayPanel= {this.displayPanel}/>
-                        </Col>
-                        <Col md={10}>
-                            <SimpleTitle type="dark">
-                                <h3>Hello, {this.state.data.firstName}!</h3>
-                            </SimpleTitle>
-                            <div className= "light-container" style= {{height: "500px"}}>
-                                <StyleDiv>
-                                    <div className= "center-row">
-                                        <Button id="logout" onClick={this.handleLogout}>Logout</Button>
-                                    </div>                            
-                                </StyleDiv>
-                            </div>
-                        </Col>
-                    </Row>
-                    
-                </div>
-            )
-        }
-        */
         if(this.state.data)
         {
             return(

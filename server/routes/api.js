@@ -10,7 +10,7 @@ router.post('/createuser', function(req, res, next) {
   // construct the User from the form data which is in the request body
   var user = new User({
     firstName: req.body.firstName, 
-    lastName: req.body.firstName,
+    lastName: req.body.lastName,
     username: req.body.username,
     password: req.body.password,
     year: req.body.year,
@@ -49,7 +49,26 @@ router.post('/finduser', function(req, res, next) {
       res.end();
     } else {
       res.type('html').status(200);
-      console.log(user);
+      res.json(user);
+    }
+  });
+});
+
+router.post('/updateuser', function(req, res, next) {
+  var searchname = req.body.username;
+  // find the policymaker
+  console.log("Updating User")
+  User.findOneAndUpdate({ username: searchname }, req.body, {new: true},  (err, user) => {
+    if (err) {
+      res.type('html').status(200);
+      console.log('uh oh' + err);
+      res.write(err);
+    } else if (!user) {
+      res.type('html').status(400);
+      res.write('There are no users with that name');
+      res.end();
+    } else {
+      res.type('html').status(200);
       res.json(user);
     }
   });
