@@ -18,7 +18,7 @@ class About extends Component {
     return (
       <div style={titleStyle}>
       <Layout light>
-        <div style={{padding: "10%", paddingTop: "15vh", minHeight: "60vh"}}>            
+        <div style={{padding: "10%", paddingTop: "15vh" , minHeight: "60vh"}}>            
           <div>
           
           <Row>
