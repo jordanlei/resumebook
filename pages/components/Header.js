@@ -38,7 +38,9 @@ class Header extends Component{
 
     var headerStyle={position: "fixed", 
     width: "100vw", 
-    backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0))"}
+    backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0))",
+    zIndex:"2"
+  }
 
     var backgroundColor = "rgba(0, 0, 0, 0.5)"
     if(this.props.light)
