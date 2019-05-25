@@ -16,9 +16,16 @@ class Loading extends Component{
   }
 
   render(){
+    const titleStyle= {
+      textAlign: 'center', 
+      minHeight: "100vh", 
+      backgroundImage: "linear-gradient(rgb(208, 212, 229), rgb(159, 167, 201))", 
+      backgroundAttachment: "fixed",     
+      backgroundSize: "cover"
+    }
 
     return(
-      <div style={{width: "100vw"}} >
+      <div className= "layout" style= {titleStyle}>
         <div style= {{margin: "0 auto", width: "200px", textAlign: "center", paddingTop: "20%"}}>
           <h3>Please wait... </h3>
           <Spinner style={{ width: '4rem', height: '4rem' }} />{' '}

@@ -5,6 +5,7 @@ import { Form, FormGroup, Label, Input, Button, Alert, FormText, Row, Col } from
 import Layout from './components/Layout';
 import StyleDiv from './components/StyleDiv';
 import { login } from './utils/auth'
+import Fade from 'react-reveal/Fade'
 
 class Login extends Component {
 
@@ -75,13 +76,27 @@ class Login extends Component {
         errorMessage= <Alert color='danger'>{this.state.error}</Alert>
     }
 
+    const titleStyle= {
+      textAlign: 'center', 
+      minHeight: "100vh", 
+      backgroundImage: "linear-gradient(rgb(208, 212, 229), rgb(159, 167, 201))", 
+      backgroundAttachment: "fixed",     
+      backgroundSize: "cover"
+    }
+
     return (
-        <Layout>
+      <div style={titleStyle}>
+        <Layout light>
         <SimpleTitle>
-            <h3>Sign In Existing User</h3>
+          <div style={{paddingTop: "10vh", width: "50vw", margin:"0 auto"}}>
+          <Fade bottom duration={3000}>
+            <h3>Let's Get You Logged In.<br/><br/></h3>
+          </Fade>
+          </div>
         </SimpleTitle>
-        <div className= "light-container" style={{height: "60vh"}}>
+        <div style={{minHeight: "60vh"}}>
         <StyleDiv>
+        <Fade bottom duration={2000} delay={500}>
             <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
                 {errorMessage}
                 <FormGroup>
@@ -109,9 +124,11 @@ class Login extends Component {
                     </Button>
                 </div>
             </Form>
+        </Fade>
         </StyleDiv>
         </div>
         </Layout>
+        </div>
     )
   }
 }

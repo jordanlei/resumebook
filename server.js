@@ -77,6 +77,12 @@ if (!dev && cluster.isMaster) {
         nextApp.render(req, res, actualPage, queryParams)
       })
 
+      server.get('/classof/:id', (req, res) => {
+        const actualPage = '/classof'
+        const queryParams = { year: req.params.id }
+        nextApp.render(req, res, actualPage, queryParams)
+      })
+
       server.get("/login", (req, res)=>{
         nextApp.render(req, res, "/login", req.query)
       })

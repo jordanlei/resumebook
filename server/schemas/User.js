@@ -51,8 +51,9 @@ var userSchema = new Schema({
     description3: String, 
 
     industries: [String], 
-    tags: [String]
+    tags: [String],
 
+    isLive: Boolean
     });
 
 // export userSchema as a class called User

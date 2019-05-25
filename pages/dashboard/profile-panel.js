@@ -10,6 +10,7 @@ class ProfilePanel extends Component {
     super(props);
     this.state= {
       error: '',
+
       username: this.props.data.username,
       password: this.props.data.password, 
       firstName: this.props.data.firstName, 
@@ -33,6 +34,7 @@ class ProfilePanel extends Component {
       endMonth1: this.props.data.endMonth1, 
       endYear1: this.props.data.endYear1, 
       description1: this.props.data.description1, 
+      description1error: '',
 
       position2: this.props.data.position2,
       place2: this.props.data.place2,  
@@ -42,6 +44,7 @@ class ProfilePanel extends Component {
       endMonth2: this.props.data.endMonth2, 
       endYear2: this.props.data.endYear2, 
       description2: this.props.data.description2, 
+      description2error: '',
 
       position3: this.props.data.position3,
       place3: this.props.data.place3,  
@@ -51,9 +54,12 @@ class ProfilePanel extends Component {
       endMonth3: this.props.data.endMonth3, 
       endYear3: this.props.data.endYear3, 
       description3: this.props.data.description3, 
+      description3error: '',
 
       industries: this.props.data.industries, 
       tags: this.props.data.tags,
+
+      isLive: this.props.data.isLive, 
 
       collapse: false
     }
@@ -129,11 +135,48 @@ class ProfilePanel extends Component {
             if(value.length==0){
                 this.setState({error: "Email field cannot be empty."})
             }
+            else if (!(value.includes("seas") || value.includes("wharton")))
+            {
+                this.setState({error: "Please enter a valid SEAS or Wharton email."})
+            }
             else
             {
                 this.setState({error: ""})
             }
             break
+        case "description1":
+          if(value.length>250){
+              this.setState({error: "Experience 1 description is too long."})
+              this.setState({description1error: "Description exceeds max length. Count: " + value.length})
+          }
+          else
+          {
+              this.setState({error: ""})
+              this.setState({description1error: ""})
+          }
+          break
+        case "description2":
+          if(value.length>250){
+              this.setState({error: "Experience 2 description is too long."})
+              this.setState({description2error: "Description exceeds max length. Count: " + value.length})
+          }
+          else
+          {
+              this.setState({error: ""})
+              this.setState({description2error: ""})
+          }
+          break
+        case "description3":
+          if(value.length>250){
+              this.setState({error: "Experience 3 description is too long."})
+              this.setState({description3error: "Description exceeds max length. Count: " + value.length})
+          }
+          else
+          {
+              this.setState({error: ""})
+              this.setState({description3error: ""})
+          }
+          break
     }
   }
 
@@ -197,10 +240,10 @@ class ProfilePanel extends Component {
       description3: this.state.description3, 
 
       industries: this.state.industries, 
-      tags: this.state.tags
-    };
+      tags: this.state.tags,
 
-    console.log(json)
+      isLive: this.state.isLive
+    };
 
     try {
       const response = await fetch(`/api/updateuser`, {
@@ -214,7 +257,6 @@ class ProfilePanel extends Component {
       if (response.ok) {
         response.json().then(res => 
             {
-                console.log(res)
                 this.props.updateData(res)
                 this.setState({error: '', submitted: true})
             })
@@ -235,10 +277,36 @@ class ProfilePanel extends Component {
   }
 
   render() {
+    var activeMessage= <div></div>
+    if(!this.state.isLive)
+    {
+      activeMessage= <Alert color= 'danger'>Your profile isn't live. You can change this in Settings.</Alert>
+    }
+
     var errorMessage= <div></div>
     if(this.state.error)
     {
+        console.log("error")
         errorMessage= <Alert color= 'danger'>{this.state.error}</Alert>
+    }
+
+    var description1ErrorMessage= <div></div>
+    if(this.state.description1error)
+    {
+      console.log("description1 error")
+       description1ErrorMessage= <Alert color= 'danger'>{this.state.description1error}</Alert>
+    }
+
+    var description2ErrorMessage= <div></div>
+    if(this.state.description2error)
+    {
+        description2ErrorMessage= <Alert color= 'danger'>{this.state.description2error}</Alert>
+    }
+
+    var description3ErrorMessage= <div></div>
+    if(this.state.description3error)
+    {
+        description3ErrorMessage= <Alert color= 'danger'>{this.state.description3error}</Alert>
     }
 
     var saveSuccess= <div></div>
@@ -307,6 +375,57 @@ class ProfilePanel extends Component {
     {
       avatar= <Card style={imageStyle}></Card>
     }
+
+    var position1= <div></div>
+            if(state.position1)
+            {
+                position1= 
+                <h5>
+                <b>{state.position1}, {state.place1}</b><br/>
+                <i>{state.startMonth1} {state.startYear1} - {state.endMonth1} {state.endYear1}</i><br/>
+                {state.description1}<br/><br/>
+                </h5>
+
+            }
+
+            var position2= <div></div>
+            if(state.position2)
+            {
+                position2= 
+                <h5>
+                    <b>{state.position2}, {state.place2}</b><br/>
+                    <i>{state.startMonth2} {state.startYear2} - {state.endMonth2} {state.endYear2}</i><br/>
+                    {state.description2}<br/><br/>
+                </h5>
+
+            }
+
+            var position3= <div></div>
+            if(state.position3)
+            {
+                position3= 
+                <h5>
+                    <b>{state.position3}, {state.place3}</b><br/>
+                    <i>{state.startMonth3} {state.startYear3} - {state.endMonth3} {state.endYear3}</i><br/>
+                    {state.description3}<br/><br/>
+                </h5>
+
+            }
+
+            var funFact= <div></div>
+            if(state.funFact)
+            {
+                funFact= 
+                <h5>
+                    <br/>
+                    <b>Fun Fact: </b>{state.funFact}<br/>
+                    <br/>
+                </h5>
+
+            }
+
+
+
     var cardContent= 
     (<div style={{padding: "10%"}}>
       {avatar}
@@ -325,23 +444,11 @@ class ProfilePanel extends Component {
       </h5>
 
       <Collapse isOpen={this.state.collapse}>
-      <h5>
-        <b>{state.position1}, {state.place1}</b><br/>
-        <i>{state.startMonth1} {state.startYear1} - {state.endMonth1} {state.endYear1}</i><br/>
-        {state.description1}<br/><br/>
-      </h5>
+      {position1}
 
-      <h5>
-        <b>{state.position2}, {state.place2}</b><br/>
-        <i>{state.startMonth2} {state.startYear2} - {state.endMonth2} {state.endYear2}</i><br/>
-        {state.description2}<br/><br/>
-      </h5>
+      {position2}
 
-      <h5>
-        <b>{state.position3}, {state.place3}</b><br/>
-        <i>{state.startMonth3} {state.startYear3} - {state.endMonth3} {state.endYear3}</i><br/>
-        {state.description3}<br/><br/>
-      </h5>
+      {position3}
       </Collapse>
 
 
@@ -351,11 +458,7 @@ class ProfilePanel extends Component {
       </h5>
 
       <Collapse isOpen={this.state.collapse}>
-      <h5>
-        <br/>
-        <b>Fun Fact: </b>{state.funFact}<br/>
-        <br/>
-      </h5>
+      {funFact}
       </Collapse>
       
 
@@ -402,7 +505,7 @@ class ProfilePanel extends Component {
                         </Col>
                     </Row>
                     <FormGroup>
-                        <Label for="year">Year</Label>
+                        <Label for="year">Class Year</Label>
                         <Input
                             type="number"
                             id="year"
@@ -524,7 +627,7 @@ class ProfilePanel extends Component {
                       </Col>
                     </Row>
                     <FormGroup>
-                        <Label for="description1">Description</Label>
+                        <Label for="description1">Description (Max 250 Chars)</Label>
                         <Input
                             style={{minHeight: "5em"}}
                             type="textarea"
@@ -533,6 +636,7 @@ class ProfilePanel extends Component {
                             onChange={this.handleInputChange}
                         />
                     </FormGroup>
+                    {description1ErrorMessage}
                     </div>
 
                     <div>
@@ -621,7 +725,7 @@ class ProfilePanel extends Component {
                       </Col>
                     </Row>
                     <FormGroup>
-                        <Label for="description2">Description</Label>
+                        <Label for="description2">Description (Max 250 Chars)</Label>
                         <Input
                             style={{minHeight: "5em"}}
                             type="textarea"
@@ -630,6 +734,7 @@ class ProfilePanel extends Component {
                             onChange={this.handleInputChange}
                         />
                     </FormGroup>
+                    {description2ErrorMessage}
                     </div>
 
 
@@ -719,7 +824,7 @@ class ProfilePanel extends Component {
                       </Col>
                     </Row>
                     <FormGroup>
-                        <Label for="description3">Description</Label>
+                        <Label for="description3">Description (Max 250 Chars)</Label>
                         <Input
                             style={{minHeight: "5em"}}
                             type="textarea"
@@ -728,6 +833,7 @@ class ProfilePanel extends Component {
                             onChange={this.handleInputChange}
                         />
                     </FormGroup>
+                    {description3ErrorMessage}
                     </div>
 
                     <h4 style={{textAlign: "center", paddingTop: "1em"}}>Other Information</h4>
@@ -782,6 +888,7 @@ class ProfilePanel extends Component {
           <div style={{position: "fixed", width: "100%", overflowY: "scroll", overflowX:"hidden", height:"100vh"}}>
           <Fade bottom>
           <Card style={cardStyle}>
+            {activeMessage}
             {cardContent}
           </Card>
           </Fade>

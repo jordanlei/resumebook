@@ -69,7 +69,8 @@ class Profile extends Component{
             );
         } else if (this.state.displaySettings) {
             return (
-                <SettingsPanel data={this.state.data} displayPanel= {this.displayPanel}/>
+                <SettingsPanel data={this.state.data} displayPanel= {this.displayPanel}
+                updateData= {this.updateData}/>
             );
         }
         else{

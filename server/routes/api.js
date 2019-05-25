@@ -86,10 +86,31 @@ router.get('/findallusers', function(req, res, next) {
         res.write('No records are available at this time.');
         res.end();
       } else {
+        res.type('html').status(200);
         res.json(users);
       }
     });
+ });
+
+ router.post('/findusers', function(req, res, next) {
+  console.log("got here")
+  console.log(req.body)
+  // find all of the policymakers
+  User.find(req.body, (err, users) => {
+    if (err) {
+      res.type('html').status(200);
+      console.log('uh oh' + err);
+      res.write(err);
+    } else if (!users) {
+      res.type('html').status(400);
+      res.write('No records are available at this time.');
+      res.end();
+    } else {
+      res.type('html').status(200);
+      res.json(users);
+    }
   });
+});
 
 
 module.exports = router;

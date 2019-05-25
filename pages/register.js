@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input, Button, Alert, FormText, Row, Col } from
 import SimpleTitle from './components/SimpleTitle';
 import Layout from './components/Layout';
 import StyleDiv from './components/StyleDiv';
+import Fade from 'react-reveal/Fade'
 
 class Register extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class Register extends Component {
         bio: '', 
         funFact: '',
         error: '',
+        isLive: false,
         submitted: false
         };
 
@@ -89,6 +91,10 @@ class Register extends Component {
                 if(value.length==0){
                     this.setState({error: "Email field cannot be empty."})
                 }
+                else if (!(value.includes("seas") || value.includes("wharton")))
+                {
+                    this.setState({error: "Please enter a valid SEAS or Wharton email."})
+                }
                 else
                 {
                     this.setState({error: ""})
@@ -147,14 +153,29 @@ class Register extends Component {
             console.log("Redirecting ...")
             Router.push('/login')
         }
+
+        const titleStyle= {
+            textAlign: 'center', 
+            minHeight: "100vh", 
+            backgroundImage: "linear-gradient(rgb(208, 212, 229), rgb(159, 167, 201))", 
+            backgroundAttachment: "fixed",     
+            backgroundSize: "cover"
+        }
+
         return (
-        <Layout>
-            <SimpleTitle>
-                <h3>Create a New User</h3>
+        <div style={titleStyle}>
+        <Layout light>
+            <SimpleTitle >
+                <Fade bottom duration={3000}>
+                <div style={{width: "50vw", margin:"0 auto"}}>
+                <h2>Let's Get You On Board.</h2>
+                </div>
+                </Fade>
             </SimpleTitle>
-            <div className= "light-container">
+            <div>
             <StyleDiv>
-                <Form style={{paddingLeft: "20%", paddingRight:"20%"}}>
+                <Fade bottom duration={2000} delay={500}>
+                <Form style={{paddingLeft: "20%", paddingRight:"20%", paddingTop: "5%"}}>
                     {errorMessage}
                     <Row>
                         <Col md={6}>
@@ -212,7 +233,7 @@ class Register extends Component {
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="year">Year</Label>
+                        <Label for="year">Class Year</Label>
                         <Input
                             type="number"
                             id="year"
@@ -226,9 +247,11 @@ class Register extends Component {
                         </Button>
                     </div>
                 </Form>
+                </Fade>
             </StyleDiv>
             </div>
         </Layout>
+        </div>
         );
     }
   }

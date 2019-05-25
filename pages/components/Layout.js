@@ -4,7 +4,7 @@ import '../css/standard.css'
 
 const Layout = props => (
   <div className= "layout">
-    <Header />
+    <Header light={props.light}/>
     <div>
       {props.children}
     </div>

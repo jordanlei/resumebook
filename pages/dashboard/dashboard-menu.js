@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {logout} from '../utils/auth';
 
 class DashboardMenu extends Component {
   constructor(props) {
     super(props);
     this.displayPanel = this.displayPanel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   displayPanel(event) {
     this.props.displayPanel(event.target.id);
+  }
+
+  handleSubmit(event){
+    logout();
   }
 
   render() {
@@ -34,7 +40,7 @@ class DashboardMenu extends Component {
             <h5 id= "displaySettings">Settings</h5>
           </Button>
 
-          <Button className="menu-item" style= {buttonStyle}>
+          <Button className="menu-item" style= {buttonStyle} onClick= {this.handleSubmit}>
             <h5>Logout</h5>
           </Button>
         </ButtonGroup>

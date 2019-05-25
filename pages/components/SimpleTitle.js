@@ -13,12 +13,7 @@ class SimpleTitle extends Component{
   render(){
     const titleStyle= {
       textAlign: 'center', 
-      height: '50vh',
-      backgroundImage: 'linear-gradient(rgb(194, 202, 221),  #434d66)',
-      backgroundAttachment: 'fixed',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
+      minheight: '40vh',
     }
 
     if(this.props.type)
@@ -32,7 +27,7 @@ class SimpleTitle extends Component{
     }
   
     const spanStyle= {
-    paddingTop: "20vh"
+    paddingTop: "10vh"
     }
 
     return(
