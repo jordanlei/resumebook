@@ -49,7 +49,7 @@ class About extends Component {
               seeking employment.
               </p>
               </Fade>
-              <Fade bottom delay ={500}>
+              <Fade bottom>
               <p>
               This resume book aims to highlight the academic foci of the Program’s students
               along with their unique skill sets and interests. Given the interdisciplinary nature of
@@ -58,7 +58,7 @@ class About extends Component {
               </p>
               </Fade>
 
-              <Fade bottom delay ={500}>
+              <Fade bottom>
               <p>
               Outside the classroom, Jerome Fisher Program students are involved in leading
               student run initiatives on campus. They can be found in student government,
