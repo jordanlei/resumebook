@@ -9,6 +9,7 @@ import {Component} from 'react'
 import {Spinner} from 'reactstrap'
 
 
+
   
 class Loading extends Component{
   constructor(props) {
@@ -26,8 +27,8 @@ class Loading extends Component{
 
     return(
       <div className= "layout" style= {titleStyle}>
-        <div style= {{margin: "0 auto", width: "200px", textAlign: "center", paddingTop: "20%"}}>
-          <h3>Please wait... </h3>
+        <div style= {{margin: "0 auto", width: "20vh", textAlign: "center", paddingTop: "20vh"}}>
+          <h3>Please wait... <br/><br/></h3>
           <Spinner style={{ width: '4rem', height: '4rem' }} />{' '}
         </div>
       </div>
